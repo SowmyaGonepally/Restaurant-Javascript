@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Restaurant</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="businesslogic.js">
+        </script>
+    <style>
+        .vertical
+        {
+        
+         margin-left: 20px;
+           border-left:4px solid black;
+           height: 2000px;
+        }
+        .row
+        {
+            margin-left: 20px;
+            
+        }
+        .card
+        {
+            background-color:ghostwhite;
+        }
+       
+ 
+     .borderless td, .borderless th
+     {
+    border: none;
+    }
+
+
+
+     
+    </style>
+    </head>
+
+    <body>
+
+
+        <div class="modal" id="myModal" >
+            <div class="modal-dialog modal-lg" style="margin-top:10%;width:2000px">
+                <div class="modal-content">
+ 
+                    <div class="modal-header" style="background-color: blue;color:white">
+                        <p class="modal-title" style="font-style: bold;">
+                            <span id="ModalTableID"></span> | Order Details</p>
+                        <button type="button" style="color: white;" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+ 
+                    <div class="modal-body">
+                        <table id="table-table1" class="table borderless">
+                            <thead>
+                                <tr>
+                                    <th>Sno</th>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                
+
+                            <tbody>
+                                
+
+                               <!--  <div id="listofitems"> -->  
+                                  <tr>
+                                  
+                                    <p  hidden id="itemIDHidden"></p>
+                                    <td id="sno"></td>
+                                    <td id="item"></td>
+                                    <td id="price"></td>
+                                    <td id="quantity"></td>
+                                    <td id="del"></td>
+                                
+                                </tr>
+                                 <!-- </div>   --> 
+                                 
+                                 
+                               
+                            </tbody>
+                        </table>
+                    </div>
+            
+                    <div class="modal-footer">
+
+                        <div class="text-center" style="text-align: center;margin-right: 130px;">
+                            <span>
+                                <span>Total amount:</span>
+                                <span id="total-bill"></span>
+                            </span>
+                        </div>
+
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info" onclick="generatebill()"
+                            style="font-size:small;" data-toggle="modal" data-target="#bill">CLOSE SESSION(GENERATE BILL)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+        </div>
+
+        
+        <div class="row">
+         <div class="column" style="width:20%">
+
+             <div class="row">
+
+                 <div class="column">
+                    <div class="tables">
+                        <h3>Tables</h3>
+                        <input id="tableSearch"type="text"
+                        onkeyup="filterSearchTables()"
+                            placeholder="Search table">
+                            <br>
+                        <br>
+                        <ul id="mytables" style="list-style-type: none;">
+                       <li>
+                        <div class="card">
+                            <div class="card-body" id="table1" ondrop="drop(event)" ondragenter="allowDrop(event)" ondragover="allowDrop(event)">
+
+
+                                <a data-toggle="modal" href="#myModal" data-target="#myModal"
+                                  style="font-size:200%;text-decoration: none;color:black;" onclick="listItems('table1')">Table-1</a>
+                               <br>
+                                <br>
+                                <span>
+                                    <span>Rs </span> 
+                                    <span id="total-price">0.00 </span>
+                                    <span>| Total-items:</span>
+                                     <span id="quantity" >0</span>
+                                </span>   
+                            </div>
+                        </div>
+                       </li>
+                        <br>
+                        <li>
+                        <div class="card">
+                            <div class="card-body" id="table2" ondrop="drop(event)" ondragenter="allowDrop(event)" ondragover="allowDrop(event)">
+                                <a data-toggle="modal" href="#myModal" data-target="#myModal"
+                                  style="font-size:200%;text-decoration: none;color:black;" onclick="listItems('table2')">Table-2</a>
+                                <br>
+                                <br>
+                                <span>
+                                    <span>Rs </span> 
+                                    <span id="total-price">0.00 </span>
+                                    <span>| Total-items:</span>
+                                     <span id="quantity" >0</span>
+                                </span>  
+                            </div>
+                        </div>
+                    </li>
+                        <br>
+                        <li>
+                        <div class="card">
+                            <div class="card-body" id="table3" ondrop="drop(event)" ondragenter="allowDrop(event)" ondragover="allowDrop(event)">
+                                <a data-toggle="modal" href="#myModal" data-target="#myModal"
+                                style="font-size:200%;text-decoration: none;color:black;" onclick="listItems('table3')">Table-3</a>
+                                <br>
+                                <br>
+                                <span>
+                                    <span>Rs </span> 
+                                    <span id="total-price">0.00 </span>
+                                    <span>| Total-items:</span>
+                                     <span id="quantity" >0</span>
+                                </span>  
+                            </div>
+                        </div>
+                    </li>
+
+                    </ul>
+                    </div>
+                 </div>
+
+                 <div class="column">
+                    <div class="vertical"></div>
+                 </div>
+
+             </div>           
+           
+         </div>
+
+         <div class="column" style="width:80%;">
+
+             <div class="Menu">
+                 <h3>Menu</h3>
+                
+                 <input id="myinput" type="text" style="width:40%;"
+                  placeholder="Search menu...by course,by food"
+                  onkeyup="filterSearchItems()"> 
+                  <button type="button" class="close"  
+                  onclick="document.getElementById('myinput').value=''";
+                  aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+                  <br><br>
+
+             <ul id="myUl" style="list-style-type: none;">
+               <li>
+                  <div class="card">
+                      <div id="frenchfries" class="card-body" draggable="true" ondragstart="drag(event)"
+                      data-toggle="modal" data-target="#myModal">
+                          <p id="name">French Fries</p>
+                          <br>
+                          <p id="food-price">100.00 </p>
+                          <p hidden id="course">snacks</p>
+                      </div>
+                  </div>
+                </li>
+                  <br>
+                 <li>
+                  <div class="card">
+                    <div id="vegpizza" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p  id="name">Veg pizza</p>
+                        <br>
+                        <p id="food-price">180.00</p>
+                        <p hidden id="course">fastfood</p>
+                    </div>
+                </div>
+               </li> 
+                <br>
+                <li>
+                <div class="card">
+                    <div id="sandwich" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p  id="name">Sandwich</p>
+                        <br>
+                        <p id="food-price">120.00</p>
+                        <p hidden id="course">fastfood</p>
+                    </div>
+                </div>
+               </li>
+               <br>
+               <li>
+                <div class="card">
+                    <div id="cheeseburger" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p  id="name">Cheese burger</p>
+                        <br>
+                        <p id="food-price">180.00</p>
+                        <p hidden id="course">fastfood</p>
+                    </div>
+                </div>
+               </li>
+                <br>
+                <li>
+                    <div class="card">
+                        <div id="mocktail" class="card-body"  draggable="true" ondragstart="drag(event)">
+                            <p  id="name">Mocktail</p>
+                            <br>
+                            <p id="food-price">120.00</p>
+                            <p hidden id="course">Beverages</p>
+                        </div>
+                    </div>
+                   </li>
+                    <br>
+                    <li>
+                        <div class="card">
+                            <div id="cooldrink" class="card-body"  draggable="true" ondragstart="drag(event)">
+                                <p  id="name">Thumbsup</p>
+                                <br>
+                                <p id="food-price">80.00</p>
+                                <p hidden id="course">Beverages</p>
+                            </div>
+                        </div>
+                       </li>
+                        <br>
+                <li>
+                <div class="card">
+                    <div  id="chickenbiryani" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p id="name">Chicken Biryani</p>
+                        <br>
+                        <p id="food-price">300.00</p>
+                        <p hidden id="course">main</p>
+                    </div>
+                </div>
+                </li>
+                <br>
+                <li>
+                <div class="card">
+                    <div id="vegbiryani" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p  id="name">Veg Biryani</p>
+                        <br>
+                        <p id="food-price">250.00</p>
+                        <p hidden id="course">main</p>
+                    </div>
+                </div>
+               </li> 
+                <br>
+                <li>
+                <div class="card">
+                    <div id="muttonbiryani" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p id="name">Mutton Biryani</p>
+                        <br>
+                        <p id="food-price">350.00</p>
+                        <p hidden id="course">main</p>
+                    </div>
+                </div>
+               </li>
+                <br>
+                <li>
+                <div class="card">
+                    <div id="pannerbiryani" class="card-body"  draggable="true" ondragstart="drag(event)">
+                        <p id="name">Panner Biryani</p>
+                        <br>
+                        <p id="food-price">320.00</p>
+                        <p hidden id="course">main</p>
+                    </div>
+                </div>
+            </li>
+
+            </ul>
+                
+             </div>
+
+         </div>
+           
+        </div>
+
+        
+        <div class="modal" id="bill">
+            <div class="modal-dialog">
+                <div class="modal-content"  style="background-color: seashell">
+                    <div class="modal-header">
+                        <button type="button" style="color: black;" class="close" data-dismiss="modal"
+                        onclick="emptyTable()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 id="billconfirm" style="color: maroon;text-align: center;">Please pay Rs : 
+                            <span id="totalbillcost"></span>
+                            and your items will be served shortly
+                        </h4>
+                    </div>
+  
+                    <div class="modal-footer">
+                        <p style="text-align: center;color: green;">Thank you!</p>
+                    </div>
+                 
+                </div>
+            </div>
+  
+        </div>
+    
+    </body>
+</html>
